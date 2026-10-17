@@ -1,0 +1,35 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  application:
+    name: usuarios-service
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:usuarios_db}?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+security:
+  jwt:
+    # Debe ser IGUAL en usuarios-service y plazoleta-service. Mínimo 32 caracteres.
+    secret: ${JWT_SECRET:cambia-este-secreto-en-produccion-minimo-32-caracteres}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}
+
+# Administrador inicial (se crea al arrancar si no existe)
+app:
+  admin:
+    nombre: ${ADMIN_NOMBRE:Administrador}
+    apellido: ${ADMIN_APELLIDO:Plazoleta}
+    documento: ${ADMIN_DOCUMENTO:1000000001}
+    celular: ${ADMIN_CELULAR:+573000000000}
+    fecha-nacimiento: ${ADMIN_FECHA_NACIMIENTO:1990-01-01}
+    correo: ${ADMIN_CORREO:admin@plazoleta.com}
+    clave: ${ADMIN_CLAVE:Admin123*}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
